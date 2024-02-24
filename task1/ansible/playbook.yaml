@@ -1,0 +1,7 @@
+---
+- hosts: targets
+  become: true
+  roles:
+    - docker_install
+    - app_deploy
+

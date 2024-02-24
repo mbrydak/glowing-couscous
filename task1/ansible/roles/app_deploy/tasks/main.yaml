@@ -1,0 +1,28 @@
+---
+- name: Create application directory
+  file:
+    path: "/tmp/app"
+    state: directory
+  become: yes
+
+- name: Copy application to remote /tmp/app
+  copy:
+    src: "{{ playbook_dir }}/../app"
+    dest: /tmp/app/
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Copy Docker Compose file to target
+  template:
+    src: "templates/docker-compose.yaml.j2"
+    dest: "/tmp/app/docker-compose.yaml"
+  become: yes
+
+- name: Deploy the application using Docker Compose
+  command: docker-compose up -d
+  args:
+    chdir: "/tmp/app"
+  become: yes
+
