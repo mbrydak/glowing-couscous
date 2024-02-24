@@ -1,5 +1,5 @@
 resource "null_resource" "ansible_playbook" {
-  depends_on = [module.ubuntu_test, module.module.doctorly-vpc]
+  depends_on = [module.ubuntu_test, module.doctorly-vpc]
 
   triggers = {
     always_run = "${timestamp()}"
